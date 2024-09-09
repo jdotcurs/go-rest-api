@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 5px;
+        }
+        button {
+            cursor: pointer;
+        }
+        #posts {
+            display: grid;
+            gap: 20px;
+        }
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blog Post Manager</h1>
+    <form id="postForm">
+        <input type="text" id="title" placeholder="Title" required>
+        <textarea id="content" placeholder="Content" required></textarea>
+        <button type="submit">Add Post</button>
+    </form>
+    <div id="posts"></div>
+
+    <script>
+        const API_URL = 'http://localhost:8080';
+
+        async function fetchPosts() {
+            const response = await fetch(`${API_URL}/posts`);
+            const posts = await response.json();
+            displayPosts(posts);
+        }
+
+        function displayPosts(posts) {
+            const postsContainer = document.getElementById('posts');
+            postsContainer.innerHTML = '';
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <p>${post.content}</p>
+                    <button onclick="deletePost(${post.id})">Delete</button>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+        }
+
+        async function addPost(event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const response = await fetch(`${API_URL}/posts`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, content }),
+            });
+            if (response.ok) {
+                document.getElementById('postForm').reset();
+                fetchPosts();
+            }
+        }
+
+        async function deletePost(id) {
+            const response = await fetch(`${API_URL}/posts/${id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                fetchPosts();
+            }
+        }
+
+        document.getElementById('postForm').addEventListener('submit', addPost);
+        fetchPosts();
+    </script>
+</body>
+</html>

@@ -1,7 +1,6 @@
 # Go Blog API with SQLite and Simple Frontend
 
-This project demonstrates a simple blog post management system using Go for the backend API, SQLite for data storage, and a basic HTML/JavaScript frontend. It's designed to showcase fundamental skills in full-stack development with Go, suitable for a junior Golang developer position.
-
+This project demonstrates a simple blog post management system using Go for the backend API, SQLite for data storage, and a basic HTML/JavaScript frontend. It's designed to showcase fundamental skills in full-stack development with Go.
 ## Features
 
 - RESTful API built with Go's standard library
@@ -78,7 +77,7 @@ This project demonstrates a simple blog post management system using Go for the 
 
 ## Why This Project Was Created
 
-This project serves as a portfolio piece for a junior Golang developer, demonstrating:
+This project serves as a portfolio piece, demonstrating:
 
 1. Ability to create a full-stack application
 2. Understanding of web development concepts
@@ -87,7 +86,7 @@ This project serves as a portfolio piece for a junior Golang developer, demonstr
 5. Frontend and backend communication
 6. Code organization and best practices in Go
 
-It's designed to be simple enough to understand quickly, yet comprehensive enough to showcase a range of skills relevant to entry-level Go development positions.
+It's designed to be simple enough to understand quickly, yet comprehensive enough to showcase a range of Go skills.
 
 ## Future Improvements
 
